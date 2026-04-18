@@ -649,16 +649,18 @@ input, select, textarea { font-family: inherit; }
 }
 
 .service-card {
-  background: #ffffff;
+  background: #ffffff !important;
   border: 2px solid var(--clr-border);
   border-radius: var(--radius-md);
   padding: 36px 28px;
-  transition: var(--transition);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease !important;
   position: relative;
   overflow: hidden;
   box-shadow: 0 4px 20px rgba(14,158,167,0.08);
   opacity: 1 !important;
-  transform: none !important;
+  transform: translateY(0) !important;
+  visibility: visible !important;
+  display: block !important;
 }
 
 .service-card::before {
