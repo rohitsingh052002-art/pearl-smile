@@ -619,6 +619,29 @@ input, select, textarea { font-family: inherit; }
 }
 
 /* ========== SERVICES ========== */
+#services.section-alt {
+  background: linear-gradient(160deg, #0b7e86 0%, #0e9ea7 60%, #0f766e 100%);
+}
+
+#services .section-tag {
+  background: rgba(255,255,255,0.2);
+  color: #fff;
+}
+
+#services .section-title {
+  color: #fff;
+}
+
+#services .section-title .accent-text {
+  color: #7fffd4;
+  font-style: italic;
+}
+
+#services .section-desc {
+  color: rgba(255,255,255,0.85);
+}
+
+
 .services-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -626,13 +649,16 @@ input, select, textarea { font-family: inherit; }
 }
 
 .service-card {
-  background: var(--clr-bg);
-  border: 1px solid var(--clr-border);
+  background: #ffffff;
+  border: 2px solid var(--clr-border);
   border-radius: var(--radius-md);
   padding: 36px 28px;
   transition: var(--transition);
   position: relative;
   overflow: hidden;
+  box-shadow: 0 4px 20px rgba(14,158,167,0.08);
+  opacity: 1 !important;
+  transform: none !important;
 }
 
 .service-card::before {
