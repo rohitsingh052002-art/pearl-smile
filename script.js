@@ -105,6 +105,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
 /* =============================================
    6. SCROLL ANIMATIONS (AOS-LIKE)
+   — Service cards are EXCLUDED from hiding
    ============================================= */
 const observerOptions = {
   threshold: 0.12,
@@ -112,7 +113,7 @@ const observerOptions = {
 };
 
 const scrollObserver = new IntersectionObserver((entries) => {
-  entries.forEach((entry, idx) => {
+  entries.forEach((entry) => {
     if (entry.isIntersecting) {
       const delay = entry.target.dataset.delay ? parseInt(entry.target.dataset.delay) : 0;
       setTimeout(() => {
@@ -124,6 +125,8 @@ const scrollObserver = new IntersectionObserver((entries) => {
 }, observerOptions);
 
 document.querySelectorAll('[data-aos]').forEach(el => {
+  // Skip service cards — they must always be visible
+  if (el.classList.contains('service-card')) return;
   scrollObserver.observe(el);
 });
 
@@ -483,17 +486,20 @@ updateNavTheme();
 
 
 /* =============================================
-   14. SMOOTH REVEAL FOR SERVICE & WHY CARDS
+   14. SMOOTH REVEAL FOR WHY & TESTIMONIAL CARDS
    ============================================= */
 const cardObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       entry.target.classList.add('aos-animate');
+      entry.target.style.opacity = '1';
+      entry.target.style.transform = 'translateY(0)';
       cardObserver.unobserve(entry.target);
     }
   });
 }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
 
+// Only animate why-cards and testimonial-cards (NOT service-cards)
 document.querySelectorAll('.why-card, .testimonial-card').forEach((el, i) => {
   el.style.transitionDelay = `${(i % 3) * 0.08}s`;
   el.style.opacity = '0';
@@ -501,16 +507,6 @@ document.querySelectorAll('.why-card, .testimonial-card').forEach((el, i) => {
   el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
   cardObserver.observe(el);
 });
-
-// Service cards — simple fade in without hiding them first
-document.querySelectorAll('.service-card').forEach((el, i) => {
-  el.style.transitionDelay = `${(i % 3) * 0.08}s`;
-  cardObserver.observe(el);
-});
-
-// Extend the IntersectionObserver callback to also handle cards
-const originalCardObserverCallback = cardObserver;
-// (already set above — cards will animate via IntersectionObserver)
 
 
 /* =============================================
